@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Modal } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -81,7 +81,7 @@ const ScoreModal: React.FC<ScoreModalProps> = ({
               </TouchableOpacity>
             </View>
             <TouchableOpacity
-              style={[styles.scoreButton, styles.chinchonButton]}
+              style={styles.chinchonButton}
               onPress={handleChinchon}
             >
               <Text style={styles.buttonText}>¡Chinchón!</Text>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 25,
+    padding: 20,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -118,40 +118,44 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     width: "90%",
+    maxWidth: 400,
   },
   playerName: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 15,
+    textAlign: "center",
   },
   currentScore: {
     fontSize: 48,
     fontWeight: "bold",
     marginBottom: 20,
+    textAlign: "center",
   },
   buttonGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
     width: "100%",
+    marginBottom: 15,
   },
   rowGrid: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
     width: "100%",
+    marginBottom: 8,
   },
   scoreButton: {
     borderRadius: 10,
     paddingVertical: 15,
     paddingHorizontal: 10,
     margin: 5,
-    flexBasis: "25%",
     alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
   },
   buttonText: {
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
+    textAlign: "center",
   },
   positiveButton: {
     backgroundColor: "#dc3545",
@@ -161,8 +165,12 @@ const styles = StyleSheet.create({
   },
   chinchonButton: {
     backgroundColor: "#ffc107",
-    flexBasis: "80%",
+    borderRadius: 10,
     paddingVertical: 20,
+    marginTop: 8,
+    marginHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
   saveButton: {
     backgroundColor: "#007bff",
