@@ -5,6 +5,28 @@ import useGameStore from "../state/game-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { version } from "../../package.json";
 import AppModal from "../components/AppModal";
+import { SvgXml } from "react-native-svg";
+
+const logoSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Card only (no background) -->
+  <g filter="url(#shadow)">
+    <rect x="224" y="152" width="576" height="720" rx="40" ry="40" fill="#ffffff"/>
+    <g stroke="#111827" stroke-width="28" stroke-linecap="round">
+      <line x1="310" y1="260" x2="310" y2="770"/>
+      <line x1="390" y1="260" x2="390" y2="770"/>
+      <line x1="470" y1="260" x2="470" y2="770"/>
+      <line x1="550" y1="260" x2="550" y2="770"/>
+      <line x1="620" y1="300" x2="280" y2="730"/>
+    </g>
+    <circle cx="700" cy="260" r="44" fill="#f59e0b" stroke="#b45309" stroke-width="8"/>
+  </g>
+</svg>`;
 
 const HomeScreen = ({ navigation }: any) => {
   const { loadGame, startNewGame } = useGameStore();
@@ -66,7 +88,7 @@ const HomeScreen = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Ionicons name="layers-outline" size={100} color="#DAA520" />
+        <SvgXml xml={logoSvg} width={100} height={100} />
         <Text style={styles.title}>Chinchón</Text>
         <Text style={styles.version}>v{version}</Text>
       </View>
