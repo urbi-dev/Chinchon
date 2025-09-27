@@ -82,11 +82,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: chinchon-web-${{ needs.get-version.outputs.version }}.zip
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ./
 
       - name: Extract Web Build
         run: |
-          ls -la chinchon-web-${{ needs.get-version.outputs.version }}.zip
           unzip chinchon-web-${{ needs.get-version.outputs.version }}.zip -d ./dist
 
       - name: Set custom domain
