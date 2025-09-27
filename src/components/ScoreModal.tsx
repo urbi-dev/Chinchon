@@ -40,42 +40,46 @@ const ScoreModal: React.FC<ScoreModalProps> = ({
           <Text style={styles.playerName}>{player?.name}</Text>
           <Text style={styles.currentScore}>{roundScore}</Text>
           <View style={styles.buttonGrid}>
-            <TouchableOpacity
-              style={[styles.scoreButton, styles.positiveButton]}
-              onPress={() => handlePress(1)}
-            >
-              <Text style={styles.buttonText}>+1</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.scoreButton, styles.positiveButton]}
-              onPress={() => handlePress(5)}
-            >
-              <Text style={styles.buttonText}>+5</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.scoreButton, styles.positiveButton]}
-              onPress={() => handlePress(10)}
-            >
-              <Text style={styles.buttonText}>+10</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.scoreButton, styles.negativeButton]}
-              onPress={() => handlePress(-1)}
-            >
-              <Text style={styles.buttonText}>-1</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.scoreButton, styles.negativeButton]}
-              onPress={() => handlePress(-5)}
-            >
-              <Text style={styles.buttonText}>-5</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.scoreButton, styles.negativeButton]}
-              onPress={() => handlePress(-10)}
-            >
-              <Text style={styles.buttonText}>-10</Text>
-            </TouchableOpacity>
+            <View style={styles.rowGrid}>
+              <TouchableOpacity
+                style={[styles.scoreButton, styles.positiveButton]}
+                onPress={() => handlePress(1)}
+              >
+                <Text style={styles.buttonText}>+1</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.scoreButton, styles.positiveButton]}
+                onPress={() => handlePress(5)}
+              >
+                <Text style={styles.buttonText}>+5</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.scoreButton, styles.positiveButton]}
+                onPress={() => handlePress(10)}
+              >
+                <Text style={styles.buttonText}>+10</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.rowGrid}>
+              <TouchableOpacity
+                style={[styles.scoreButton, styles.negativeButton]}
+                onPress={() => handlePress(-1)}
+              >
+                <Text style={styles.buttonText}>-1</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.scoreButton, styles.negativeButton]}
+                onPress={() => handlePress(-5)}
+              >
+                <Text style={styles.buttonText}>-5</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.scoreButton, styles.negativeButton]}
+                onPress={() => handlePress(-10)}
+              >
+                <Text style={styles.buttonText}>-10</Text>
+              </TouchableOpacity>
+            </View>
             <TouchableOpacity
               style={[styles.scoreButton, styles.chinchonButton]}
               onPress={handleChinchon}
@@ -128,6 +132,11 @@ const styles = StyleSheet.create({
   buttonGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
+    justifyContent: "center",
+    width: "100%",
+  },
+  rowGrid: {
+    flexDirection: "row",
     justifyContent: "center",
     width: "100%",
   },
