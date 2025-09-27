@@ -1,3 +1,11 @@
+## [1.0.4](https://github.com/urbi-dev/Chinchon/compare/v1.0.3...v1.0.4) (2025-09-27)
+
+
+### Bug Fixes
+
+* restructure score buttons layout in ScoreModal for better organization ([ffd6b0e](https://github.com/urbi-dev/Chinchon/commit/ffd6b0ee5075a4502d541752aa52442f81d53ba9))
+* update release workflow to improve build and artifact handling ([f634177](https://github.com/urbi-dev/Chinchon/commit/f634177ace755ad439df119c98f5233820985a74))
+
 ## [1.0.3](https://github.com/DevUrbi/Chinchon/compare/v1.0.2...v1.0.3) (2025-08-24)
 
 
