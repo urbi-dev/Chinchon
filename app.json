@@ -1,57 +1,57 @@
 {
   "expo": {
-    "name": "chinchon-calc",
-    "slug": "chinchon-calc",
-    "version": "1.0.4",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/brand/icon-no-bg.svg",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/brand/icon-no-bg.svg",
-        "backgroundColor": "#22c55e"
+        "backgroundColor": "#22c55e",
+        "foregroundImage": "./assets/adaptive-icon.png"
       },
       "edgeToEdgeEnabled": true
     },
+    "icon": "./assets/icon.png",
+    "ios": {
+      "supportsTablet": true
+    },
+    "name": "chinchon-calc",
+    "newArchEnabled": true,
+    "orientation": "portrait",
+    "slug": "chinchon-calc",
+    "splash": {
+      "backgroundColor": "#ffffff",
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain"
+    },
+    "userInterfaceStyle": "light",
+    "version": "1.0.4",
     "web": {
       "favicon": "./public/favicon.png",
       "manifest": {
-        "name": "Chinchón Calc",
-        "short_name": "Chinchón",
-        "description": "Calculadora de puntuaciones para el juego de cartas Chinchón",
-        "theme_color": "#22c55e",
         "background_color": "#ffffff",
+        "description": "Calculadora de puntuaciones para el juego de cartas Chinchón",
         "display": "standalone",
-        "orientation": "portrait",
-        "scope": "/",
-        "start_url": "/",
         "icons": [
           {
-            "src": "./assets/web-icons/icon-192.png",
             "sizes": "192x192",
+            "src": "./assets/web-icons/icon-192.png",
             "type": "image/png"
           },
           {
-            "src": "./assets/web-icons/icon-512.png",
             "sizes": "512x512",
+            "src": "./assets/web-icons/icon-512.png",
             "type": "image/png"
           },
           {
-            "src": "./assets/web-icons/icon-180.png",
+            "purpose": "any maskable",
             "sizes": "180x180",
-            "type": "image/png",
-            "purpose": "any maskable"
+            "src": "./assets/web-icons/icon-180.png",
+            "type": "image/png"
           }
-        ]
+        ],
+        "name": "Chinchón Calc",
+        "orientation": "portrait",
+        "scope": "/",
+        "short_name": "Chinchón",
+        "start_url": "/",
+        "theme_color": "#22c55e"
       },
       "output": {
         "publicPath": ""
