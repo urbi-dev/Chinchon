@@ -6,20 +6,59 @@ on:
       - main
 
 jobs:
-  release:
-    name: Release
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+      - name: Install dependencies
+        run: npm install
+      - name: Generate native project
+        run: npx expo prebuild --platform android --non-interactive
+      - name: Build APK
+        run: |
+          cd android
+          ./gradlew assembleRelease
+      - name: Create dist directory
+        run: mkdir -p dist
+      - name: Move APK to dist
+        run: mv android/app/build/outputs/apk/release/app-release.apk dist/chinchon.apk
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk
+          path: dist/chinchon.apk
+
+  release:
+    name: Release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: "22"
       - name: Install dependencies
         run: npm install
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: apk
+          path: dist
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
