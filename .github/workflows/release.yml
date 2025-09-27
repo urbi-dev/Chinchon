@@ -66,3 +66,35 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npx semantic-release
+
+  deploy:
+    needs: [get-version, build-web]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Web Build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: chinchon-web-${{ needs.get-version.outputs.version }}.zip
+          path: ./web-build
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Web Build
+        run: |
+          cd ./web-build
+          unzip chinchon-web-${{ needs.get-version.outputs.version }}.zip -d ../dist
+
+      - name: Set custom domain
+        run: echo -n "chinchon.urbieta.dev" > ./dist/CNAME
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
