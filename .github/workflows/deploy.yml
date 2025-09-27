@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -16,16 +16,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Download Web Build artifact
+        uses: actions/download-artifact@v4
         with:
-          node-version: "22"
+          name: chinchon-web-${{ github.sha }}.zip
+          path: ./web-build
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build web export
-        run: npx expo export --platform web
+      - name: Extract Web Build
+        run: unzip ./web-build/chinchon-web-${{ github.sha }}.zip -d ./dist
 
       - name: Set custom domain
         run: echo -n "chinchon.urbieta.dev" > ./dist/CNAME
