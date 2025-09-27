@@ -82,13 +82,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: chinchon-web-${{ needs.get-version.outputs.version }}.zip
-          path: ./web-build
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract Web Build
         run: |
-          cd ./web-build
-          unzip chinchon-web-${{ needs.get-version.outputs.version }}.zip -d ../dist
+          ls -la chinchon-web-${{ needs.get-version.outputs.version }}.zip
+          unzip chinchon-web-${{ needs.get-version.outputs.version }}.zip -d ./dist
 
       - name: Set custom domain
         run: echo -n "chinchon.urbieta.dev" > ./dist/CNAME
