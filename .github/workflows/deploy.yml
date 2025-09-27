@@ -1,10 +1,11 @@
 name: Deploy to GitHub Pages
 
 on:
-  workflow_run:
-    workflows: ["Release"]
-    types:
-      - completed
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
 
 jobs:
   deploy:
@@ -13,6 +14,7 @@ jobs:
       contents: write
       pages: write
       id-token: write
+      actions: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,23 +22,14 @@ jobs:
       - name: Download Web Build artifact
         uses: actions/download-artifact@v4
         with:
-          pattern: chinchon-web-*.zip
+          name: chinchon-web-${{ inputs.version }}.zip
           path: ./web-build
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          run-id: ${{ github.event.workflow_run.id }}
-
-      - name: Get version from artifact name
-        id: get_version
-        run: |
-          ARTIFACT_NAME=$(ls ./web-build/ | grep chinchon-web- | head -1)
-          VERSION=$(echo $ARTIFACT_NAME | sed -n 's/chinchon-web-\(.*\)\.zip/\1/p')
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "artifact=$ARTIFACT_NAME" >> "$GITHUB_OUTPUT"
 
       - name: Extract Web Build
         run: |
           cd ./web-build
-          unzip ${{ steps.get_version.outputs.artifact }} -d ../dist
+          unzip chinchon-web-${{ inputs.version }}.zip -d ../dist
 
       - name: Set custom domain
         run: echo -n "chinchon.urbieta.dev" > ./dist/CNAME

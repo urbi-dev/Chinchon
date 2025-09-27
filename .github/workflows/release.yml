@@ -68,3 +68,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npx semantic-release
+
+  deploy:
+    needs: [release]
+    uses: ./.github/workflows/deploy.yml
+    with:
+      version: ${{ needs.get-version.outputs.version }}
