@@ -1,10 +1,11 @@
 name: Build Web
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
 
 jobs:
   build:
@@ -25,14 +26,8 @@ jobs:
       - name: Build Web
         run: npm run build
 
-      - name: Get web version from Semantic Release
-        id: web_version
-        run: |
-          npx semantic-release --dry-run
-          echo "::set-output name=version::$(node -p \"require('./package.json').version\")"
-
       - name: Upload Web Build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: chinchon-web-${{ steps.web_version.outputs.version }}.zip
+          name: chinchon-web-${{ inputs.version }}.zip
           path: build

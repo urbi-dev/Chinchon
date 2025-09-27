@@ -6,33 +6,49 @@ on:
       - main
 
 jobs:
+  get-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get version from Semantic Release
+        id: get_version
+        run: |
+          npx semantic-release --dry-run
+          echo "::set-output name=version::$(node -p \"require('./package.json').version\")"
+
+  build-web:
+    needs: get-version
+    uses: ./.github/workflows/web.yml
+    with:
+      version: ${{ needs.get-version.outputs.version }}
+
+  build-android:
+    needs: get-version
+    uses: ./.github/workflows/android.yml
+    with:
+      version: ${{ needs.get-version.outputs.version }}
+
   release:
-    name: Release
+    needs: [build-web, build-android]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-
-      - name: Install dependencies
-        run: npm install
 
       - name: Download Android APK artifact
         uses: actions/download-artifact@v4
         with:
-          name: chinchon-android-${{ steps.app_version.outputs.version }}.apk
+          name: chinchon-android-${{ needs.get-version.outputs.version }}.apk
           path: ./artifacts/android
 
       - name: Download Web Build artifact
         uses: actions/download-artifact@v4
         with:
-          name: chinchon-web-${{ steps.app_version.outputs.version }}.zip
+          name: chinchon-web-${{ needs.get-version.outputs.version }}.zip
           path: ./artifacts/web
 
       - name: Release
