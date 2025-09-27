@@ -23,7 +23,7 @@
       "edgeToEdgeEnabled": true
     },
     "web": {
-      "favicon": "./assets/favicon.png",
+      "favicon": "./public/favicon.png",
       "manifest": {
         "name": "Chinchón Calc",
         "short_name": "Chinchón",
