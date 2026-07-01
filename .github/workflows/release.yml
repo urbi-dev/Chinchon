@@ -6,60 +6,29 @@ on:
       - main
 
 jobs:
-  get-version:
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.get_version.outputs.version }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Get version from Semantic Release
-        id: get_version
-        run: |
-          VERSION=$(npx semantic-release --dry-run 2>/dev/null | grep -oP 'next release version is "\K[\d.]+' | head -1)
-          if [ -z "$VERSION" ]; then
-            VERSION=$(node -p "require('./package.json').version")
-          fi
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-
   build-web:
-    needs: get-version
     uses: ./.github/workflows/web.yml
-    with:
-      version: ${{ needs.get-version.outputs.version }}
 
   build-android:
-    needs: get-version
     uses: ./.github/workflows/android.yml
-    with:
-      version: ${{ needs.get-version.outputs.version }}
 
   release:
     needs: [build-web, build-android]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Download Android APK artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
-          name: chinchon-android-${{ needs.get-version.outputs.version }}.apk
+          name: chinchon-android
           path: ./artifacts/android
 
       - name: Download Web Build artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
-          name: chinchon-web-${{ needs.get-version.outputs.version }}.zip
+          name: chinchon-web
           path: ./artifacts/web
 
       - name: Release
@@ -68,7 +37,7 @@ jobs:
         run: npx semantic-release
 
   deploy:
-    needs: [get-version, build-web]
+    needs: build-web
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -76,19 +45,19 @@ jobs:
       id-token: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Download Web Build artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
-          name: chinchon-web-${{ needs.get-version.outputs.version }}.zip
+          name: chinchon-web
           path: ./dist
 
       - name: Set custom domain
         run: echo -n "chinchon.urbieta.dev" > ./dist/CNAME
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist

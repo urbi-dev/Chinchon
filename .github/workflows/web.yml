@@ -2,22 +2,18 @@ name: Build Web
 
 on:
   workflow_call:
-    inputs:
-      version:
-        required: true
-        type: string
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 22
+          node-version: "24"
           cache: npm
 
       - name: Install dependencies
@@ -27,7 +23,7 @@ jobs:
         run: npx expo export --platform web
 
       - name: Upload Web Build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
-          name: chinchon-web-${{ inputs.version }}.zip
+          name: chinchon-web
           path: dist

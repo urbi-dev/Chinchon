@@ -10,37 +10,40 @@
     "gen:icons": "node ./scripts/generate-icons.mjs"
   },
   "dependencies": {
-    "@expo/metro-runtime": "~5.0.4",
+    "@expo/metro-runtime": "^5.0.5",
     "@expo/vector-icons": "^14.1.0",
-    "@react-native-async-storage/async-storage": "^2.1.2",
-    "@react-navigation/native": "^7.1.16",
-    "@react-navigation/native-stack": "^7.3.23",
-    "expo": "~53.0.20",
+    "@react-native-async-storage/async-storage": "^2.2.0",
+    "@react-navigation/native": "^7.3.5",
+    "@react-navigation/native-stack": "^7.17.7",
+    "expo": "^53.0.27",
     "expo-status-bar": "~2.2.3",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "react-native": "0.79.5",
-    "react-native-gesture-handler": "^2.27.2",
-    "react-native-safe-area-context": "^5.5.2",
-    "react-native-screens": "^4.13.1",
-    "react-native-svg": "^15.12.0",
-    "react-native-web": "^0.20.0",
-    "zustand": "^5.0.7"
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-native": "^0.79.7",
+    "react-native-gesture-handler": "^2.32.0",
+    "react-native-safe-area-context": "^5.8.0",
+    "react-native-screens": "^4.17.1",
+    "react-native-svg": "^15.15.5",
+    "react-native-web": "^0.21.2",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.2",
+    "@babel/core": "^7.29.7",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^11.0.4",
+    "@semantic-release/github": "^11.0.6",
     "@semantic-release/npm": "^12.0.2",
-    "@semantic-release/release-notes-generator": "^14.0.3",
-    "@types/react": "~19.0.10",
-    "babel-plugin-module-resolver": "^5.0.2",
-    "semantic-release": "^24.2.7",
-    "typescript": "~5.8.3",
-    "sharp": "^0.33.5"
+    "@semantic-release/release-notes-generator": "^14.1.1",
+    "@types/react": "^19.2.17",
+    "babel-plugin-module-resolver": "^5.0.3",
+    "semantic-release": "^24.2.9",
+    "sharp": "^0.35.3",
+    "typescript": "~5.8.3"
+  },
+  "engines": {
+    "node": ">=24"
   },
   "private": true
 }
