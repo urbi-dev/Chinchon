@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Download Android APK artifact
         uses: actions/download-artifact@v7
@@ -30,6 +32,11 @@ jobs:
         with:
           name: chinchon-web
           path: ./artifacts/web
+
+      - name: Package Web build
+        run: |
+          cd artifacts/web
+          zip -r ../chinchon-web.zip .
 
       - name: Release
         env:

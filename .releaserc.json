@@ -27,11 +27,11 @@
       {
         "assets": [
           {
-            "path": "artifacts/android/*.apk",
+            "path": "artifacts/android/app-release.apk",
             "label": "Android APK"
           },
           {
-            "path": "artifacts/web/*.zip",
+            "path": "artifacts/chinchon-web.zip",
             "label": "Web Build"
           }
         ]
